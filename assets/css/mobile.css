@@ -1,0 +1,206 @@
+/* assets/css/mobile.css */
+
+/* Точка перелома для планшетов и мобильных */
+@media (max-width: 768px) {
+    
+    /* --- Глобальные правки --- */
+    body {
+        font-size: 14px; /* Чуть меньше шрифт для всего */
+    }
+
+    /* =================================== */
+    /* --- СТУДЕНТ (GAMEPLAY) --- */
+    /* =================================== */
+    
+    .student-app {
+        padding: 10px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .app-header {
+        margin: 10px 0;
+        padding: 10px 15px;
+    }
+
+    /* Меню режимов */
+    .game-modes-container {
+        grid-template-columns: 1fr; /* Одна колонка карточек */
+        gap: 15px;
+    }
+
+    .game-card {
+        height: 200px; /* Чуть компактнее по высоте */
+    }
+
+    /* Игровое поле */
+    .problem-area {
+        font-size: 1.8rem; /* Уменьшаем пример чтобы влезал */
+        min-height: 60px;
+    }
+
+    .answer-placeholder {
+        min-width: 80px;
+        height: 60px;
+        font-size: 1.5rem; /* Чуть меньше шрифт ответа */
+    }
+
+    /* Клавиатура */
+    .virtual-keyboard-modern {
+        max-width: 100%;
+        gap: 8px;
+        padding-bottom: 50px; /* Отступ снизу для телефонов */
+    }
+
+    .v-key {
+        height: 60px; /* Чуть ниже кнопки */
+        font-size: 1.5rem;
+    }
+
+    /* --- Адаптация НОВЫХ режимов --- */
+
+    /* 1. Битва с Роботом */
+    .hp-bars-container {
+        gap: 8px; /* Чуть меньше отступы */
+        padding: 5px 0;
+    }
+    .bot-avatar-center {
+        font-size: 2rem; /* Робот поменьше */
+        min-width: 40px;
+    }
+    .hp-label {
+        font-size: 0.6rem;
+    }
+    .hp-side {
+        /* Принудительно растягиваем на мобильном */
+        flex-grow: 1;
+        width: auto; 
+    }
+    .hp-track {
+        height: 18px; /* Чуть тоньше, но все равно видно */
+    }
+
+    /* 2. True / False */
+    #trueFalseControls {
+        flex-direction: row; /* Оставляем в ряд для удобства пальцев */
+        gap: 10px;
+    }
+    .tf-btn {
+        padding: 15px 5px;
+        font-size: 1rem; /* Уменьшаем шрифт чтобы влезло "НЕВЕРНО" */
+    }
+
+    /* 3. Memory (Найди пару) */
+    .memory-grid {
+        gap: 8px;
+    }
+    .memory-front, .memory-back {
+        font-size: 0.9rem; 
+        border-width: 1px;
+    }
+    .memory-card {
+        border-radius: 8px;
+    }
+
+    /* 4. Builder (Конструктор) */
+    .builder-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки вместо 3, чтобы текст влезал */
+        gap: 8px;
+    }
+    .builder-option {
+        font-size: 1.1rem;
+        padding: 12px 5px;
+    }
+    .builder-target {
+        font-size: 2.5rem;
+        margin: 5px 0 15px;
+    }
+
+    /* 5. Rain (Дождь) */
+    #rainUI {
+        height: 280px; /* Уменьшаем высоту, чтобы не перекрывалось клавиатурой на мелких экранах */
+    }
+    .rain-input-display {
+        bottom: 10px; /* Чуть ниже */
+        font-size: 2rem;
+        padding: 5px 20px;
+    }
+
+    /* Профиль */
+    .stats-summary {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .stats-grid-modern {
+        grid-template-columns: 1fr; /* Статистика в столбик */
+        gap: 10px;
+    }
+    .stat-box {
+        padding: 15px;
+    }
+
+    /* =================================== */
+    /* --- АДМИНКА (CRM) --- */
+    /* =================================== */
+    
+    .admin-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 260px;
+        transform: translateX(-100%); /* Скрыт по умолчанию */
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* Когда сайдбар открыт (добавляется JS-ом стиль) */
+    .sidebar[style*="transform: translateX(0)"] {
+        box-shadow: 0 0 100vw rgba(0,0,0,0.5); /* Затемнение фона */
+    }
+
+    .close-sidebar-btn {
+        display: block; /* Показываем крестик */
+    }
+
+    .main-content {
+        margin-left: 0; /* Контент на всю ширину */
+        width: 100%;
+    }
+
+    .top-bar {
+        padding: 0 15px;
+    }
+
+    .burger-btn {
+        display: block; /* Показываем кнопку меню */
+    }
+
+    .content-container {
+        padding: 15px; /* Меньше отступы внутри */
+    }
+
+    .stats-cards-grid {
+        grid-template-columns: 1fr; /* Карточки в столбик */
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .btn-action {
+        width: 32px;
+        height: 32px;
+    }
+    
+    /* Таблицы - скролл */
+    .custom-table th, .custom-table td {
+        padding: 12px 15px;
+        font-size: 0.85rem;
+    }
+}

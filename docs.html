@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация | Тренажер таблицы умножения</title>
+    <style>
+        :root {
+            --primary: #4f46e5;       /* Индиго */
+            --primary-light: #e0e7ff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --border: #e5e7eb;
+            --sidebar-width: 300px;
+            
+            --code-bg: #1e293b;       /* Темно-синий для кода */
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR (Навигация) --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-card);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+            position: sticky;
+            top: 0;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-group-title {
+            padding: 20px 25px 8px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 8px 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+            background: #f9fafb;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: var(--primary-light);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 40px;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .container {
+            max-width: 1600px; /* Широкий формат */
+            margin: 0 auto;
+        }
+
+        section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            scroll-margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { font-size: 2.5rem; margin: 0 0 20px; line-height: 1.2; color: #111827; }
+        h2 { font-size: 1.8rem; margin: 0 0 25px; padding-bottom: 15px; border-bottom: 2px solid var(--bg-body); color: var(--primary); }
+        h3 { font-size: 1.4rem; margin: 35px 0 15px; color: #374151; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        h4 { font-size: 1.1rem; margin: 0 0 10px; color: #111827; }
+        p { margin-bottom: 15px; font-size: 1rem; color: #4b5563; }
+        
+        ul, ol { margin-bottom: 20px; padding-left: 25px; color: #4b5563; }
+        li { margin-bottom: 8px; }
+
+        /* --- COMPONENTS --- */
+        
+        /* Code Block Fix */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto; /* Горизонтальный скролл если нужно */
+            line-height: 1.5;
+            margin: 20px 0;
+            white-space: pre; /* ВАЖНО: Сохраняет переносы строк */
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .badge-ver { background: #dbeafe; color: #1e40af; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th { background: #f9fafb; font-weight: 600; color: #374151; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Feature Cards */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+
+        .card {
+            background: #f9fafb;
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+
+        .icon-box {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 20px;
+            border-left: 5px solid;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .alert-warning { border-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-info { border-color: #3b82f6; background: #eff6ff; color: #1e40af; }
+
+        /* --- MOBILE ADAPTATION --- */
+        @media (max-width: 992px) {
+            .sidebar { display: none; } /* Скрываем сайдбар на планшетах и ниже */
+            .main-content { margin-left: 0; width: 100%; padding: 20px; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            section { padding: 25px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">🎓 MathTrainer Docs</div>
+        </div>
+        <div class="nav-links">
+            <div class="nav-group-title">Введение</div>
+            <a href="#intro" class="nav-item active">Обзор системы</a>
+            <a href="#install" class="nav-item">Установка и запуск</a>
+            <a href="#structure" class="nav-item">Структура файлов</a>
+
+            <div class="nav-group-title">Учителю</div>
+            <a href="#admin-overview" class="nav-item">Панель управления</a>
+            <a href="#admin-students" class="nav-item">Работа с учениками</a>
+            <a href="#admin-exams" class="nav-item">Экзамены</a>
+            <a href="#admin-export" class="nav-item">Отчеты и экспорт</a>
+
+            <div class="nav-group-title">Ученику</div>
+            <a href="#game-modes" class="nav-item">Режимы игры</a>
+            <a href="#achievements" class="nav-item">Достижения</a>
+
+            <div class="nav-group-title">Разработка</div>
+            <a href="#api" class="nav-item">API Reference</a>
+        </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="main-content">
+        <div class="container">
+
+            <!-- INTRO -->
+            <section id="intro">
+                <span class="badge badge-ver">Версия 2.5 (Full)</span>
+                <h1>Тренажер таблицы умножения</h1>
+                <p>Современное веб-приложение для обучения арифметике с элементами геймификации. Система разработана для использования в школьных классах или для самостоятельного обучения. Не требует сложной установки баз данных, так как работает на файловой системе JSON.</p>
+                
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="icon-box">🎮</div>
+                        <h4>9 Режимов игры</h4>
+                        <p>Включая аркадные механики ("Дождь", "Змейка"), логические задачи и классические тренажеры.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box">📊</div>
+                        <h4>CRM для учителя</h4>
+                        <p>Полноценная панель управления классами, учениками и мониторинг успеваемости в реальном времени.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-box">📱</div>
+                        <h4>Адаптивность</h4>
+                        <p>Интерфейс полностью адаптирован для работы как на ПК (клавиатура), так и на смартфонах (тач-интерфейс).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INSTALLATION -->
+            <section id="install">
+                <h2>Установка и запуск</h2>
+                <p>Приложение написано на чистом PHP (Backend) и JavaScript (Frontend), что обеспечивает максимальную совместимость с любыми хостингами.</p>
+
+                <h3>Системные требования</h3>
+                <ul>
+                    <li>Веб-сервер (Apache, Nginx, OpenServer, XAMPP).</li>
+                    <li>PHP версии 7.4 или выше.</li>
+                    <li>Доступ на запись в директорию <code>data/</code>.</li>
+                </ul>
+
+                <h3>Инструкция по первому запуску</h3>
+                <ol>
+                    <li>Скопируйте все файлы проекта в корневую папку вашего веб-сервера.</li>
+                    <li>Убедитесь, что папка <code>data/</code> существует. Если её нет, скрипт создаст её автоматически, но права на создание папок должны быть у PHP.</li>
+                    <li>Откройте в браузере адрес: <code>http://ваш-сайт/admin.php</code>.</li>
+                    <li>Система автоматически сгенерирует файлы конфигурации.</li>
+                </ol>
+
+                <div class="alert alert-warning">
+                    <strong>Внимание:</strong> При первом входе используются стандартные данные администратора:<br>
+                    Логин: <strong>admin</strong><br>
+                    Пароль: <strong>admin</strong><br>
+                    <em>Настоятельно рекомендуется сменить их в настройках профиля сразу после входа.</em>
+                </div>
+            </section>
+
+            <!-- FILE STRUCTURE -->
+            <section id="structure">
+                <h2>Структура файлов</h2>
+                <p>Проект имеет модульную структуру. Все данные хранятся в JSON файлах, что упрощает резервное копирование.</p>
+                
+                <!-- Используем PRE для сохранения форматирования дерева -->
+<pre>
+/ (Корень проекта)
+├── admin.php            # Точка входа для учителей (Интерфейс админки)
+├── index.php            # Точка входа для учеников (Игровой интерфейс)
+├── api.php              # Единый контроллер API (обрабатывает все AJAX запросы)
+├── docs.html            # Данная документация
+│
+├── assets/              # Статические ресурсы
+│   ├── css/             # Стили
+│   │   ├── main.css     # Общие стили (цвета, шрифты, сброс)
+│   │   ├── admin.css    # Стили панели управления
+│   │   ├── student.css  # Стили игрового интерфейса
+│   │   └── mobile.css   # Адаптация под телефоны
+│   ├── js/              # Скрипты
+│   │   ├── admin-app.js # Логика админки
+│   │   ├── student-app.js # Игровой движок и логика ученика
+│   │   ├── utils.js     # Вспомогательные функции (fetch, helpers)
+│   │   └── icons.js     # SVG иконки
+│   └── fonts/           # Подключенные шрифты
+│
+├── src/                 # Серверная логика (PHP классы)
+│   ├── Auth.php         # Авторизация, сессии, middleware защиты
+│   ├── DataManager.php  # CRUD операции с JSON файлами
+│   ├── StatsService.php # Агрегация статистики, ачивки, CSV экспорт
+│   └── Helper.php       # Генерация ID, PIN-кодов и прочее
+│
+├── views/               # HTML шаблоны (Layouts)
+│   ├── admin_layout.php   # Разметка админ-панели
+│   └── student_layout.php # Разметка приложения ученика
+│
+└── data/                # База данных (JSON)
+    ├── .htaccess        # Запрет прямого доступа из браузера
+    ├── admin.json       # Учетные записи администраторов
+    ├── classes.json     # Список классов
+    ├── students.json    # Данные учеников (включая достижения)
+    ├── results.json     # Лог всех сыгранных игр
+    └── exams.json       # Конфигурация и история экзаменов
+</pre>
+            </section>
+
+            <!-- ADMIN PANEL -->
+            <section id="admin-overview">
+                <h2>Панель управления учителя</h2>
+                <p>Центр управления учебным процессом. Доступен по адресу <code>admin.php</code>.</p>
+
+                <h3>Основные возможности:</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Обзор (Дашборд)</h4>
+                        <p>Показывает сводную статистику: общее количество учеников, количество решенных примеров за все время, средний балл по школе и график активности за неделю.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Управление классами</h4>
+                        <p>Создание, редактирование и удаление классов. При удалении класса удаляются и все привязанные к нему ученики.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Администраторы</h4>
+                        <p>Система поддерживает несколько учителей. Вы можете добавить коллег, выдав им логин и пароль. Любой админ может управлять всем процессом.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Настройки профиля</h4>
+                        <p>Смена логина и пароля для текущего авторизованного учителя.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STUDENTS MANAGEMENT -->
+            <section id="admin-students">
+                <h2>Работа с учениками</h2>
+                <p>Вкладка "Ученики" позволяет управлять составом классов.</p>
+
+                <h3>Добавление ученика</h3>
+                <p>При создании ученика необходимо указать ФИО и выбрать класс. Система автоматически сгенерирует уникальный 4-значный <strong>PIN-код</strong>. Этот код используется учеником для входа в систему (пароли не используются для упрощения доступа детям).</p>
+
+                <h3>Экспорт списков</h3>
+                <p>Для удобства учителя предусмотрены кнопки быстрой выгрузки:</p>
+                <ul>
+                    <li><strong>Скачать список всех учеников:</strong> CSV файл со всей школой.</li>
+                    <li><strong>Скачать список класса:</strong> CSV файл только выбранного в фильтре класса.</li>
+                </ul>
+                <p>Файл содержит колонки: <code>Класс</code>, <code>ФИО</code>, <code>PIN-код</code>. Этот файл можно распечатать и раздать детям данные для входа.</p>
+            </section>
+
+            <!-- EXAMS -->
+            <section id="admin-exams">
+                <h2>Проведение экзаменов</h2>
+                <p>Экзамен — это специальный режим, который принудительно активируется учителем для целого класса.</p>
+
+                <div class="alert alert-info">
+                    <strong>Механика:</strong> Когда учитель запускает экзамен для класса "2 А", у всех учеников этого класса в главном меню появляется большая кнопка "ЭКЗАМЕН", а остальные режимы блокируются (опционально) или становятся второстепенными.
+                </div>
+
+                <h3>Параметры запуска:</h3>
+                <ul>
+                    <li><strong>Класс:</strong> Для кого проводим.</li>
+                    <li><strong>Сложность:</strong> Легко, Средне, Сложно.</li>
+                    <li><strong>Время:</strong> Таймер (1, 3, 5, 10, 20 минут).</li>
+                </ul>
+
+                <h3>Завершение и результаты:</h3>
+                <p>Учитель может вручную остановить экзамен кнопкой "Завершить". После этого экзамен переходит в архив, и доступен отчет с результатами каждого ученика (количество верных ответов и оценка по 5-балльной шкале).</p>
+            </section>
+
+            <!-- EXPORT -->
+            <section id="admin-export">
+                <h2>Отчеты и экспорт данных</h2>
+                <p>Система генерирует подробные CSV отчеты, совместимые с Microsoft Excel.</p>
+
+                <h3>Виды отчетов:</h3>
+                <ol>
+                    <li><strong>Общий отчет:</strong> История всех решений всех учеников за всё время.</li>
+                    <li><strong>Отчет по ученику:</strong> Детальная история конкретного ребенка (доступна из карточки ученика).</li>
+                </ol>
+
+                <div class="alert alert-warning">
+                    <strong>Техническая деталь:</strong> При формировании CSV дробные числа (например, средний балл 4.5) записываются с запятой (4,5). Это сделано для того, чтобы Excel корректно распознавал их как числа, а не конвертировал в даты (например, "4 май").
+                </div>
+            </section>
+
+            <!-- GAME MODES -->
+            <section id="game-modes">
+                <h2>Игровые режимы</h2>
+                <p>Приложение предлагает 9 разнообразных механик для удержания интереса ребенка.</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="20%">Режим</th>
+                                <th width="40%">Описание</th>
+                                <th>Особенности</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Свободный</strong></td>
+                                <td>Базовая тренировка без ограничений по времени и жизням.</td>
+                                <td>Идеально для разминки.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>На время</strong></td>
+                                <td>Необходимо решить максимальное количество примеров за заданное время.</td>
+                                <td>Таймер обратного отсчета.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Выживание</strong></td>
+                                <td>Игра продолжается до 3-х ошибок.</td>
+                                <td>Индикатор "сердечек".</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Верю - Не верю</strong></td>
+                                <td>Показывается готовый пример (напр. 5x5=26). Нужно быстро ответить, верно это или нет.</td>
+                                <td>Кнопки ДА/НЕТ вместо цифр. Развивает внимательность.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Поиск X</strong></td>
+                                <td>Уравнения вида <code>? × 6 = 42</code>. Нужно найти множитель.</td>
+                                <td>Подготовка к делению и алгебре.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Битва с Ботом</strong></td>
+                                <td>Соревнование с ИИ. Бот наносит урон игроку по таймеру. Правильные ответы игрока наносят урон боту.</td>
+                                <td>Полоски здоровья (HP), анимация робота. Эффект напряжения.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Найди Пару (Memory)</strong></td>
+                                <td>Сетка перевернутых карточек. Нужно найти пары "Пример" и "Ответ".</td>
+                                <td>Тренировка зрительной памяти.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Мат. Дождь</strong></td>
+                                <td>Примеры падают сверху экрана. Нужно успеть ввести ответ и "сбить" пример лазером до касания земли.</td>
+                                <td>Аркадная механика. Тренировка скорости набора на клавиатуре.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Конструктор</strong></td>
+                                <td>Дано число (ответ). Нужно выбрать из списка все примеры, результатом которых является это число.</td>
+                                <td>Развивает навык декомпозиции числа.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ACHIEVEMENTS -->
+            <section id="achievements">
+                <h2>Система достижений</h2>
+                <p>Для мотивации учеников реализована система из 30+ наград (ачивок). Проверка выполнения условий происходит автоматически после каждого завершения игры.</p>
+
+                <h3>Категории наград:</h3>
+                <ul>
+                    <li><strong>Прогресс:</strong> За общее количество решенных примеров (Новичок, Мастер, Легенда).</li>
+                    <li><strong>Точность:</strong> За решение тестов без единой ошибки (Снайпер, Аимбот).</li>
+                    <li><strong>Скорость:</strong> За высокую скорость решения в режиме "На время" (Флэш).</li>
+                    <li><strong>Уникальные:</strong>
+                        <ul>
+                            <li><em>Зонтик</em> — продержаться 3 минуты под дождем.</li>
+                            <li><em>Шерлок</em> — решить 50 уравнений с поиском X.</li>
+                            <li><em>Сова / Жаворонок</em> — за игру поздно ночью или рано утром.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>В профиле ученика отображается редкость получения достижения среди одноклассников (в процентах).</p>
+            </section>
+
+            <!-- API -->
+            <section id="api">
+                <h2>Справочник API</h2>
+                <p>Взаимодействие фронтенда и бекенда происходит через единую точку входа <code>api.php</code>. Все запросы отправляются методом <code>POST</code> с телом в формате JSON.</p>
+
+                <h3>Формат запроса:</h3>
+<pre>
+POST /api.php
+{
+    "action": "название_метода",
+    "param1": "значение",
+    ...
+}
+</pre>
+
+                <h3>Основные методы:</h3>
+                <ul>
+                    <li><code>student_login</code> — авторизация ученика (params: pin, class_id).</li>
+                    <li><code>admin_login</code> — авторизация учителя (params: login, password).</li>
+                    <li><code>get_initial_data</code> — получение списка классов для формы входа.</li>
+                    <li><code>get_student_profile</code> — загрузка статистики, истории и ачивок ученика.</li>
+                    <li><code>save_result</code> — сохранение результата игры. Возвращает новые ачивки, если они получены.</li>
+                    <li><code>get_admin_dashboard</code> — получение всех данных для админки (ученики, классы, статистика).</li>
+                    <li><code>manage_class</code> — (add/edit/delete) управление классами.</li>
+                    <li><code>manage_student</code> — (add/delete) управление учениками.</li>
+                    <li><code>manage_admin</code> — (get/add/delete) управление списком администраторов.</li>
+                    <li><code>export_student_list</code> — генерация CSV со списком класса.</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT FOR NAVIGATION -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('section');
+
+            // Плавный скролл и подсветка меню
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    // Активная секция та, которая сейчас в верхней трети экрана
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
